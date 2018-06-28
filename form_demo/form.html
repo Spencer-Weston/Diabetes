@@ -11,13 +11,13 @@
 <!-- input string -->
 Blood Glucose:<br>
 <input type="text" name="Blood Glucose" placeholder="Enter BG"><br>
+Insulin Type: <br>
+<!--This should be a user default -->
+<input type="text" name="insulin type" placeholder="Enter insulin type"> <br>
+
 Time:<br>
 <input type="datetime-local" id="time-input" name="time">
 <script>
-
-var s = new Date().toISOString();
-document.getElementById("time-input").defaultValue = date.slice(0, -5);
-=======
 //var s = new Date().toISOString();
 //document.getElementById("time-input").defaultValue = s.slice(0, -5);
 
