@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title> BG Submit Form </title>
+</head>
 <body>
 <h1>Welcome to <b>Form</b></h1>
 <p>This will be the form used for submitting strings</p>
 
 <form method="post">
 <!-- input string -->
-<<<<<<< HEAD
 Blood Glucose:<br>
-<input type="text" name="string" placeholder="Enter string"><br>
+<input type="text" name="Blood Glucose" placeholder="Enter BG"><br>
 Time:<br>
-<input type="text" name="time" placeholder = "Enter time">
-=======
-<input type="text" name="string" placeholder="Enter string">
 <input type="datetime-local" id="time-input" name="time">
 <script>
 var s = new Date().toISOString();
@@ -21,7 +20,6 @@ document.getElementById("time-input").defaultValue = s.slice(0, -5);
 // I'm not sure the ISO string format I was getting is always gauranteed across browsers
 // This seems to work for me but should be flagged as something to change later to make sure it always works
 </script>
->>>>>>> time_field
 <input type="submit" value="Submit">
 </form>
 

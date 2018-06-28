@@ -28,12 +28,12 @@ http.createServer(function (req, res) {
     // add entry to data file
     req.on('end', function () {
       var post = qs.parse(body);
-      console.log(post['string']);
+      console.log(post['Blood Glucose'] + "here");
       console.log(post["time"]);
       // append string to data file
-      fs.appendFile('data_file.txt', post['string'] + " " + post['time'] + '\n', function (err) {
+      fs.appendFile('data_file.txt', post['Blood Glucose'] + " " + post['time'] + '\n', function (err) {
         if (err) throw err;
-        console.log('added \'' + post['string'] + '\' to data file');
+        console.log('added \'' + post['Blood Glucose'] + '\' to data file');
 		console.log('added \'' + post['time'] + '\' to data file');
       });
     });
