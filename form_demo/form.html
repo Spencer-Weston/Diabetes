@@ -15,10 +15,11 @@ function displayForm(id) {
 		let displayValue = check_status.checked ? "block" : "none";
 	    //document.getElementById(id + "Form").style.display ="block";
 		document.getElementById(id + "Form").style.display = displayValue;
+		if(displayValue === "block"){
+		    document.getElementById(id +"-time-input").defaultValue = setTime()
+		}
 	}
 }
-
-
 </script>
 
 <fieldset>
@@ -36,11 +37,9 @@ Pick what you want to document!
 Blood Glucose:<br>
 <input type="test" name="Blood Glucose" placeholder="Enter BG"><br>
 Time:<br>
-<input type="datetime-local" id="time-input" name="time">
+<input type="datetime-local" id="bg-time-input" name="time">
 </fieldset>
 </form>
-
-
 
 <form method="post" id="insulinForm" style="display:none">
 <fieldset>
@@ -48,7 +47,7 @@ Insulin Type: <br>
 <!--This should be a user default -->
 <input type="text" name="insulin type" placeholder="Enter insulin type"> <br>
 Time:<br>
-<input type="datetime-local" id="time-input" name="time">
+<input type="datetime-local" id="insulin-time-input" name="time">
 </fieldset>
 </form>
 
@@ -58,18 +57,18 @@ Time:<br>
 Food:<br>
 <input type="text" name="food" placeholder="Enter food"><br>
 Time:<br>
-<input type="datetime-local" id="time-input" name="time">
+<input type="datetime-local" id="food-time-input" name="time">
 </fieldset>
 </form>
 
 <script>
 //var s = new Date().toISOString();
 //document.getElementById("time-input").defaultValue = s.slice(0, -5);
-
-var tzOffset = new Date().getTimezoneOffset() * 60000;
-var localTime = new Date(Date.now() - tzOffset).toISOString().slice(0, -1);
-document.getElementById("time-input").defaultValue = localTime;
-
+function setTime() {
+	var tzOffset = new Date().getTimezoneOffset() * 60000;
+	var localTime = new Date(Date.now() - tzOffset).toISOString().slice(0, -1);
+	return(localTime)
+}
 // NOTE: the slice was used to convert from the ISO string I was getting to a format used by the HTML element
 // I'm not sure the ISO string format I was getting is always gauranteed across browsers
 // This seems to work for me but should be flagged as something to change later to make sure it always works
