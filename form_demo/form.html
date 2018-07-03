@@ -8,38 +8,60 @@
 <p>This will be the form used for submitting strings</p>
 
 <script>
-function test(){
-    console.log("IGOTCALLED")
-}
-
 function displayForm(id) {
 	console.log(id);
     let check_status = document.getElementById(id);
 	if(check_status){
-	    document.getElementById(id + "Form").style.display ="block";		
+		let displayValue = check_status.checked ? "block" : "none";
+	    //document.getElementById(id + "Form").style.display ="block";
+		document.getElementById(id + "Form").style.display = displayValue;
 	}
 }
+
+
 </script>
 
 <fieldset>
 Pick what you want to document!
 <form>
-<input type="checkbox" name="bg" id="bg" value="bg" /><label for="bg"> BG</label><br>
-<input type="checkbox" name="food" id="food" value="food"/><label onclick="test()" for="food"> Food</label><br>
+<input type="checkbox" name="bg" id="bg" value="bg" onclick="displayForm(this.id)"><label for="bg"> BG</label><br>
+<input type="checkbox" name="food" id="food" value="food" onclick="displayForm(this.id)"><label for="food"> Food</label><br>
 <input type="checkbox" name="insulin" id="insulin" value="insulin" onclick="displayForm(this.id)"><label for="insulin"> Insulin</label><br>
 </form>
 </fieldset>
 
-<form method="post" name="insulinForm" id="insulinForm" style="display:none">
-<!-- input string -->
+
+<form method="post" id="bgForm" style="display:none">
+<fieldset>
 Blood Glucose:<br>
-<input type="text" name="Blood Glucose" placeholder="Enter BG"><br>
+<input type="test" name="Blood Glucose" placeholder="Enter BG"><br>
+Time:<br>
+<input type="datetime-local" id="time-input" name="time">
+</fieldset>
+</form>
+
+
+
+<form method="post" id="insulinForm" style="display:none">
+<fieldset>
 Insulin Type: <br>
 <!--This should be a user default -->
 <input type="text" name="insulin type" placeholder="Enter insulin type"> <br>
-
 Time:<br>
 <input type="datetime-local" id="time-input" name="time">
+</fieldset>
+</form>
+
+
+<form method="post" id="foodForm" style="display:none">
+<fieldset>
+Food:<br>
+<input type="text" name="food" placeholder="Enter food"><br>
+Time:<br>
+<input type="datetime-local" id="time-input" name="time">
+</fieldset>
+</form>
+
 <script>
 //var s = new Date().toISOString();
 //document.getElementById("time-input").defaultValue = s.slice(0, -5);
