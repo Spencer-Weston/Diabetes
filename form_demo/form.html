@@ -3,7 +3,7 @@
 <head>
     <title> BG Submit Form </title>
 </head>
-<body>
+<body onload="initInsulinTypeValue()">
 <h1>Welcome to <b>Form</b></h1>
 <p>This will be the form used for submitting strings</p>
 
@@ -36,7 +36,7 @@ Blood Glucose:<br>
 <input type="text" name="Blood Glucose" placeholder="Enter BG"><br>
 Insulin Type: <br>
 <!--This should be a user default -->
-<input type="text" name="insulin type" placeholder="Enter insulin type"> <br>
+<input type="text" name="insulin type" id="insulinType" oninput="setInsulinTypeCookie(this.value)" placeholder="Enter insulin type"> <br>
 
 Time:<br>
 <input type="datetime-local" id="time-input" name="time">
@@ -52,7 +52,37 @@ document.getElementById("time-input").defaultValue = localTime;
 // I'm not sure the ISO string format I was getting is always gauranteed across browsers
 // This seems to work for me but should be flagged as something to change later to make sure it always works
 
+function setInsulinTypeCookie(value) {
+	let insulinType = value;
+	document.cookie = "defaultInsulinType=" + insulinType;
+}
 
+function initInsulinTypeValue() {
+	console.log('here')
+	let element = document.getElementById("insulinType");
+	let cookiePairs = document.cookie.split(';');
+	let value = '';
+	console.log(cookiePairs);
+
+	let i;
+
+	// check all cookies
+	for (i = 0; i < cookiePairs.length; i += 1) {
+		let pair = cookiePairs[i];
+		console.log('pair:');
+		console.log(pair);
+		let cookie = pair.split('=');
+		console.log(cookie);
+
+		// find cookie pair with correct name
+		if (cookie[0] === 'defaultInsulinType') {
+			value = cookie[1];
+			break;
+		}
+	}
+	
+	element.value = value;
+}
 </script>
 
 <input type="submit" value="Submit">
