@@ -8,15 +8,27 @@
 <p>This will be the form used for submitting strings</p>
 
 <script>
-function displayForm(id) {
+function displayForm(id, descriptor=null) {
 	console.log(id);
     let check_status = document.getElementById(id);
+	let displayValue = null
 	if(check_status){
-		let displayValue = check_status.checked ? "block" : "none";
-	    //document.getElementById(id + "Form").style.display ="block";
-		document.getElementById(id + "Form").style.display = displayValue;
+	    let formName = descriptor ? descriptor+capitalizeFirstLetter(id)+"Form" : id+"Form";
+		console.log("Form name: " + formName);
+	    if(check_status.type === "radio") {
+		    console.log("radio")
+		    displayValue = document.getElementById(formName).style.display === "none" ? "block" : "none";
+		}
+		else{
+		    displayValue = check_status.checked ? "block" : "none";
+			console.log("not radio displayValue: " + displayValue);
+		}
+	    //let formName = descriptor ? descriptor+capitalizeFirstLetter(id)+"Form" : id+"Form";
+		console.log("displayValue: " + displayValue);
+		
+		document.getElementById(formName).style.display = displayValue;
 		if(displayValue === "block"){
-		    document.getElementById(id +"-time-input").defaultValue = setTime()
+		    document.getElementById(id +"-time-input").defaultValue = setTime();
 		}
 	}
 }
@@ -41,25 +53,45 @@ Time:<br>
 </fieldset>
 </form>
 
-<form method="post" id="insulinForm" style="display:none">
-<fieldset>
-Insulin Type: <br>
-<!--This should be a user default -->
-<input type="text" name="insulin type" placeholder="Enter insulin type"> <br>
-Time:<br>
-<input type="datetime-local" id="insulin-time-input" name="time">
-</fieldset>
-</form>
-
 
 <form method="post" id="foodForm" style="display:none">
 <fieldset>
 Food:<br>
 <input type="text" name="food" placeholder="Enter food"><br>
+Carbs(g):             
+<input type="text" name="carbs" placeholder="Enter carbs"><br>
+Protein(g):
+<input type="text" name="protein" placeholder="Enter carbs"><br>
+Fat(g):
+<input type="text" name="protein" placeholder="Enter carbs"><br>
 Time:<br>
 <input type="datetime-local" id="food-time-input" name="time">
 </fieldset>
 </form>
+
+<form method="post" id="insulinForm" style="display:none">
+<fieldset>
+Insulin Pump?:
+<input type="radio" name="insulinPump" id="pump" value="yes" onclick="displayForm(this.id, this.value)">Yes 
+<input type="radio" name="insulinPump" id="pump" value="no" onclick="displayForm(this.id, this.value)">No
+<input type="radio" name="insulinPump" id="pump" value="test" onclick="displayForm(this.id, 'test')">test
+</form>
+
+<form method="post" id="noPumpForm" style="display:none">
+Short Acting Insulin Type: <br>
+<!--This should be a user default -->
+<input type="text" name="short insulin type" placeholder="Enter insulin type"> <br>
+Time:<br>
+<input type="datetime-local" id="insulin-time-input" name="time">
+</form>
+
+<form method="post" id="yesPumpForm" style="display:none">
+Insulin Type: <br>
+<input type="text" name="insulin type" placeholder="Enter insulin type"> <br>
+Basal Program: <br>
+<input type="datetime-local" id="basal-time-input" name="basalTime">
+</form>
+</fieldset>
 
 <script>
 //var s = new Date().toISOString();
@@ -73,7 +105,9 @@ function setTime() {
 // I'm not sure the ISO string format I was getting is always gauranteed across browsers
 // This seems to work for me but should be flagged as something to change later to make sure it always works
 
-
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+}
 </script>
 
 <input type="submit" value="Submit">
