@@ -8,30 +8,7 @@
 <p>This will be the form used for submitting strings</p>
 
 <script>
-function displayForm(id, descriptor=null) {
-	console.log(id);
-    let check_status = document.getElementById(id);
-	let displayValue = null
-	if(check_status){
-	    let formName = descriptor ? descriptor+capitalizeFirstLetter(id)+"Form" : id+"Form";
-		console.log("Form name: " + formName);
-	    if(check_status.type === "radio") {
-		    console.log("radio")
-		    displayValue = document.getElementById(formName).style.display === "none" ? "block" : "none";
-		}
-		else{
-		    displayValue = check_status.checked ? "block" : "none";
-			console.log("not radio displayValue: " + displayValue);
-		}
-	    //let formName = descriptor ? descriptor+capitalizeFirstLetter(id)+"Form" : id+"Form";
-		console.log("displayValue: " + displayValue);
-		
-		document.getElementById(formName).style.display = displayValue;
-		if(displayValue === "block"){
-		    document.getElementById(id +"-time-input").defaultValue = setTime();
-		}
-	}
-}
+
 </script>
 
 <fieldset>
@@ -72,9 +49,8 @@ Time:<br>
 <form method="post" id="insulinForm" style="display:none">
 <fieldset>
 Insulin Pump?:
-<input type="radio" name="insulinPump" id="pump" value="yes" onclick="displayForm(this.id, this.value)">Yes 
-<input type="radio" name="insulinPump" id="pump" value="no" onclick="displayForm(this.id, this.value)">No
-<input type="radio" name="insulinPump" id="pump" value="test" onclick="displayForm(this.id, 'test')">test
+<input type="radio" name="pump" id="yesPump" value="yes" onclick="displayForm(this.id, this.value, this.name)">Yes 
+<input type="radio" name="pump" id="noPump" value="no" onclick="displayForm(this.id, this.value, this.name)">No
 </form>
 
 <form method="post" id="noPumpForm" style="display:none">
@@ -104,6 +80,52 @@ function setTime() {
 // NOTE: the slice was used to convert from the ISO string I was getting to a format used by the HTML element
 // I'm not sure the ISO string format I was getting is always gauranteed across browsers
 // This seems to work for me but should be flagged as something to change later to make sure it always works
+
+function displayForm(id, radioVal=null, radioName=null) {
+    let check_status = document.getElementById(id);
+	let displayValue = null
+	if(check_status){
+	    let formName = radioVal ? radioVal+capitalizeFirstLetter(id)+"Form" : id+"Form";
+		console.log("Form name: " + formName);
+	    if(check_status.type === "radio") {
+		    //displayValue = document.getElementById(formName).checked === true ? "block" : "none";
+			buttonSet = document.getElementsByName(radioName)
+			showClickedRadioForm(id, buttonSet)
+			//console.log("radio displayValue:" + displayValue)
+		}
+		else{
+		    displayValue = check_status.checked ? "block" : "none";
+			console.log("not radio displayValue: " + displayValue);
+		}
+	    //let formName = descriptor ? descriptor+capitalizeFirstLetter(id)+"Form" : id+"Form";
+		//console.log("displayValue: " + displayValue);
+		
+		document.getElementById(formName).style.display = displayValue;
+		if(displayValue === "block"){
+		    document.getElementById(id +"-time-input").defaultValue = setTime();
+		}
+	}
+}
+
+function showClickedRadioForm(id, buttonSet) {
+	//identify the clicked button
+	let displayValue = null
+    for (i=0; i<buttonSet.length; i++){
+	    formName = buttonSet[i].id + "Form"
+        if(buttonSet[i].checked === true){
+		    //console.log("checked === true")
+		    displayValue = "block"
+            //updateTime		
+		}
+		else{
+		    displayValue = "none"
+		}
+		console.log("radio Form Name: " + formName + "|| displayValue: " + displayValue)
+		console.log("current display: " + document.getElementById(formName).style.display)
+		document.getElementById(formName).style.display = displayValue
+		console.log("post change display: " + document.getElementById(formName).style.display)
+    }    
+}
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1)
