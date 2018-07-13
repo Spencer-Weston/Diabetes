@@ -38,9 +38,9 @@ Food:<br>
 Carbs(g):             
 <input type="text" name="carbs" placeholder="Enter carbs"><br>
 Protein(g):
-<input type="text" name="protein" placeholder="Enter carbs"><br>
+<input type="text" name="protein" placeholder="Enter protein"><br>
 Fat(g):
-<input type="text" name="protein" placeholder="Enter carbs"><br>
+<input type="text" name="fat" placeholder="Enter fat"><br>
 Time:<br>
 <input type="datetime-local" id="food-time-input" name="time">
 </fieldset>
@@ -49,8 +49,8 @@ Time:<br>
 <form method="post" id="insulinForm" style="display:none">
 <fieldset>
 Insulin Pump?:
-<input type="radio" name="pump" id="yesPump" value="yes" onclick="displayForm(this.id, this.value, this.name)">Yes 
-<input type="radio" name="pump" id="noPump" value="no" onclick="displayForm(this.id, this.value, this.name)">No
+<input type="radio" name="pump" id="yesPump" value="yes" onclick="displayForm(this.id, this.name)">Yes 
+<input type="radio" name="pump" id="noPump" value="no" onclick="displayForm(this.id, this.name)">No
 </form>
 
 <form method="post" id="noPumpForm" style="display:none">
@@ -72,7 +72,7 @@ Basal Program: <br>
 <script>
 //var s = new Date().toISOString();
 //document.getElementById("time-input").defaultValue = s.slice(0, -5);
-function setTime() {
+function getTime() {
 	var tzOffset = new Date().getTimezoneOffset() * 60000;
 	var localTime = new Date(Date.now() - tzOffset).toISOString().slice(0, -1);
 	return(localTime)
@@ -81,50 +81,63 @@ function setTime() {
 // I'm not sure the ISO string format I was getting is always gauranteed across browsers
 // This seems to work for me but should be flagged as something to change later to make sure it always works
 
-function displayForm(id, radioVal=null, radioName=null) {
+function setTime(form) {
+    for(i=0; i <form.length; i++){
+	    if (form[i].type === "datetime-local") {
+		    document.getElementById(form[i].id).defaultValue = getTime();
+		}
+    }
+}
+
+function displayForm(id, radioName=null) {
     let check_status = document.getElementById(id);
 	let displayValue = null
 	if(check_status){
-	    let formName = radioVal ? radioVal+capitalizeFirstLetter(id)+"Form" : id+"Form";
-		console.log("Form name: " + formName);
+		//console.log("Form name: " + formName);
+		//branch for radio forms 
 	    if(check_status.type === "radio") {
 		    //displayValue = document.getElementById(formName).checked === true ? "block" : "none";
-			buttonSet = document.getElementsByName(radioName)
-			showClickedRadioForm(id, buttonSet)
-			//console.log("radio displayValue:" + displayValue)
+			buttonSet = document.getElementsByName(radioName);
+			console.log("buttonSet.length: " + buttonSet.length);
+			showClickedRadioForm(id, buttonSet);
 		}
+		//branch for checkbox forms
 		else{
+		    let formName = id+"Form";
 		    displayValue = check_status.checked ? "block" : "none";
 			console.log("not radio displayValue: " + displayValue);
+			document.getElementById(formName).style.display = displayValue;
+		    if(displayValue === "block"){
+			    console.log("right before set time")
+		        setTime(document.getElementById(formName));
+			}
 		}
 	    //let formName = descriptor ? descriptor+capitalizeFirstLetter(id)+"Form" : id+"Form";
 		//console.log("displayValue: " + displayValue);
-		
-		document.getElementById(formName).style.display = displayValue;
-		if(displayValue === "block"){
-		    document.getElementById(id +"-time-input").defaultValue = setTime();
-		}
 	}
+	console.log("\n")
 }
 
 function showClickedRadioForm(id, buttonSet) {
-	//identify the clicked button
 	let displayValue = null
-    for (i=0; i<buttonSet.length; i++){
+	//identify the clicked button
+    for (let i=0; i<buttonSet.length; i++){
+	    console.log("i: " +i)
 	    formName = buttonSet[i].id + "Form"
         if(buttonSet[i].checked === true){
-		    //console.log("checked === true")
+		    console.log("checked === true")
 		    displayValue = "block"
-            //updateTime		
+            setTime(document.getElementById(formName))		
 		}
 		else{
+		    console.log("checked === false")
 		    displayValue = "none"
 		}
-		console.log("radio Form Name: " + formName + "|| displayValue: " + displayValue)
-		console.log("current display: " + document.getElementById(formName).style.display)
+		console.log("radio Form Name: " + formName + " || current form display: " + document.getElementById(formName).style.display + " || to change display value: " + displayValue)
 		document.getElementById(formName).style.display = displayValue
 		console.log("post change display: " + document.getElementById(formName).style.display)
-    }    
+    }
+    console.log("exit of for loop")    
 }
 
 function capitalizeFirstLetter(string) {
