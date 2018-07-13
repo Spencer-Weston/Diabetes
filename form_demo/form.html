@@ -26,7 +26,8 @@ Pick what you want to document!
 Blood Glucose:<br>
 <input type="test" name="Blood Glucose" placeholder="Enter BG"><br>
 Time:<br>
-<input type="datetime-local" id="bg-time-input" name="time">
+<input type="datetime-local" id="bg-time-input" name="time"> <br>
+<input type="submit" value="Submit"> 
 </fieldset>
 </form>
 
@@ -42,7 +43,8 @@ Protein(g):
 Fat(g):
 <input type="text" name="fat" placeholder="Enter fat"><br>
 Time:<br>
-<input type="datetime-local" id="food-time-input" name="time">
+<input type="datetime-local" id="food-time-input" name="time"> <br>
+<input type="submit" value="Submit"> 
 </fieldset>
 </form>
 
@@ -58,16 +60,19 @@ Short Acting Insulin Type: <br>
 <!--This should be a user default -->
 <input type="text" name="short insulin type" placeholder="Enter insulin type"> <br>
 Time:<br>
-<input type="datetime-local" id="insulin-time-input" name="time">
+<input type="datetime-local" id="insulin-time-input" name="time"> <br>
+<input type="submit" value="Submit"> 
 </form>
 
 <form method="post" id="yesPumpForm" style="display:none">
 Insulin Type: <br>
 <input type="text" name="insulin type" placeholder="Enter insulin type"> <br>
 Basal Program: <br>
-<input type="datetime-local" id="basal-time-input" name="basalTime">
+<input type="datetime-local" id="basal-time-input" name="basalTime"> <br>
+<input type="submit" value="Submit"> 
 </form>
 </fieldset>
+
 
 <script>
 //var s = new Date().toISOString();
@@ -144,9 +149,6 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1)
 }
 </script>
-
-<input type="submit" value="Submit">
-</form>
 
 </body>
 </html>
