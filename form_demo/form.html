@@ -103,17 +103,17 @@ function displayForm(id, radioName=null) {
 	    if(check_status.type === "radio") {
 		    //displayValue = document.getElementById(formName).checked === true ? "block" : "none";
 			buttonSet = document.getElementsByName(radioName);
-			console.log("buttonSet.length: " + buttonSet.length);
+			//console.log("buttonSet.length: " + buttonSet.length);
 			showClickedRadioForm(id, buttonSet);
 		}
 		//branch for checkbox forms
 		else{
 		    let formName = id+"Form";
 		    displayValue = check_status.checked ? "block" : "none";
-			console.log("not radio displayValue: " + displayValue);
+			//console.log("not radio displayValue: " + displayValue);
 			document.getElementById(formName).style.display = displayValue;
 		    if(displayValue === "block"){
-			    console.log("right before set time")
+			    //console.log("right before set time")
 		        setTime(document.getElementById(formName));
 			}
 		}
@@ -130,19 +130,19 @@ function showClickedRadioForm(id, buttonSet) {
 	    console.log("i: " +i)
 	    formName = buttonSet[i].id + "Form"
         if(buttonSet[i].checked === true){
-		    console.log("checked === true")
+		    //console.log("checked === true")
 		    displayValue = "block"
             setTime(document.getElementById(formName))		
 		}
 		else{
-		    console.log("checked === false")
+		    //console.log("checked === false")
 		    displayValue = "none"
 		}
-		console.log("radio Form Name: " + formName + " || current form display: " + document.getElementById(formName).style.display + " || to change display value: " + displayValue)
+		//console.log("radio Form Name: " + formName + " || current form display: " + document.getElementById(formName).style.display + " || to change display value: " + displayValue)
 		document.getElementById(formName).style.display = displayValue
-		console.log("post change display: " + document.getElementById(formName).style.display)
+		//console.log("post change display: " + document.getElementById(formName).style.display)
     }
-    console.log("exit of for loop")    
+    //console.log("exit of for loop")    
 }
 
 function capitalizeFirstLetter(string) {
