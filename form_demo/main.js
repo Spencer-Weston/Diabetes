@@ -27,19 +27,15 @@ http.createServer(function (req, res) {
 
     // add entry to data file
     req.on('end', function () {
-      var post = qs.parse(body);
-	  //console.log("object entries" + Object.entries(post));
-	  
+      var post = qs.parse(body);	  
 	  let keys = []
 	  for (const [key] of Object.entries(post)) {
-        //console.log(`${key}`); // "a 5", "b 7", "c 9"
-		keys.push(`${key}`)
+		keys.push(`${key}`) //Got this from stack overflow. How does this work? 
       }
-	  //console.log(keys);
       // append string to data file
        dataString = "";
 	   for (key of keys) {
-		 console.log("key: " +key +" value; " + post[key]);
+		 console.log("key: " +key +" value: " + post[key]);
 		 dataString = dataString.concat(key, ",", post[key], " ");
 		 console.log("dataString: " + dataString)
 		 if(key === "time"){
