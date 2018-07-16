@@ -28,14 +28,28 @@ http.createServer(function (req, res) {
     // add entry to data file
     req.on('end', function () {
       var post = qs.parse(body);
-      console.log(post['Blood Glucose'] + "here");
-      console.log(post["time"]);
+	  //console.log("object entries" + Object.entries(post));
+	  
+	  let keys = []
+	  for (const [key] of Object.entries(post)) {
+        //console.log(`${key}`); // "a 5", "b 7", "c 9"
+		keys.push(`${key}`)
+      }
+	  //console.log(keys);
       // append string to data file
-      fs.appendFile('data_file.txt', post['Blood Glucose'] + " " + post['time'] + '\n', function (err) {
-        if (err) throw err;
-        console.log('added \'' + post['Blood Glucose'] + '\' to data file');
-		console.log('added \'' + post['time'] + '\' to data file');
-      });
+       dataString = "";
+	   for (key of keys) {
+		 console.log("key: " +key +" value; " + post[key]);
+		 dataString = dataString.concat(key, ",", post[key], " ");
+		 console.log("dataString: " + dataString)
+		 if(key === "time"){
+	       fs.appendFile('data_file.txt', dataString + '\n', function (err) {
+            if (err) throw err;
+            console.log('added \'' + dataString+ '\' to data file');
+			dataString = "";
+          });
+	     }
+	   }
     });
     //console.log(req.body.string);
     res.writeHead(200, {'Content-Type': 'text/html'});
