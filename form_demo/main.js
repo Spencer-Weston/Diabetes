@@ -50,8 +50,16 @@ http.createServer(function (req, res) {
 	   }
     });
     //console.log(req.body.string);
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end('Thank you for your response!');
+    //res.writeHead(200, {'Content-Type': 'text/html'});
+    //res.end('Thank you for your response!');
+    fs.readFile('form.html', function(err, data) {
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.write(data);
+      res.end();
+      //////////////////res.end();
+      console.log('Sent form to client.');
+    });
+
   }
   //res.end();
 }).listen(3000);
