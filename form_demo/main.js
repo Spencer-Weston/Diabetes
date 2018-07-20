@@ -37,7 +37,7 @@ http.createServer(function (req, res) {
 	   for (key of keys) {
 		 console.log("key: " +key +" value: " + post[key]);
 		 if (post[key].length > 0) {//Only submit if user entered a value 
-		   dataString = dataString.concat(key, ",", post[key], " ");
+		   dataString = dataString.concat(key, ",", post[key], ";");
 		 }
 		 console.log("dataString: " + dataString)
 		 if(key === "time"){

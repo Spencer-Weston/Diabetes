@@ -14,9 +14,9 @@
 <fieldset>
 Pick what you want to document!
 <form>
-<input type="checkbox" name="bg" id="bg" value="bg" onclick="displayForm(this.id)"><label for="bg"> BG</label><br>
-<input type="checkbox" name="food" id="food" value="food" onclick="displayForm(this.id)"><label for="food"> Food</label><br>
-<input type="checkbox" name="insulin" id="insulin" value="insulin" onclick="displayForm(this.id)"><label for="insulin"> Insulin</label><br>
+<input type="radio" name="test" id="bg" value="bg" onclick="displayForm(this.id, this.name)"><label for="bg"> BG</label><br>
+<input type="radio" name="test" id="food" value="food" onclick="displayForm(this.id, this.name)"><label for="food"> Food</label><br>
+<input type="radio" name="test" id="insulin" value="insulin" onclick="displayForm(this.id, this.name)"><label for="insulin"> Insulin</label><br>
 </form>
 </fieldset>
 
@@ -109,7 +109,7 @@ function displayForm(id, radioName=null) {
 	    if(check_status.type === "radio") {
 		    //displayValue = document.getElementById(formName).checked === true ? "block" : "none";
 			buttonSet = document.getElementsByName(radioName);
-			//console.log("buttonSet.length: " + buttonSet.length);
+			console.log("buttonSet.length: " + buttonSet.length);
 			showClickedRadioForm(id, buttonSet);
 		}
 		//branch for checkbox forms
