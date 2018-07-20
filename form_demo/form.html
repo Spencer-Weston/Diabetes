@@ -24,7 +24,7 @@ Pick what you want to document!
 <form method="post" id="bgForm" style="display:none">
 <fieldset>
 Blood Glucose:<br>
-<input type="test" name="Blood Glucose" placeholder="Enter BG"><br>
+<input type="test" name="bgVal" placeholder="Enter BG"><br>
 Time:<br>
 <input type="datetime-local" id="bg-time-input" name="time"> <br>
 <input type="submit" value="Submit"> 
@@ -56,9 +56,15 @@ Insulin Pump?:
 </form>
 
 <form method="post" id="noPumpForm" style="display:none">
-Short Acting Insulin Type: <br>
+Short Acting Insulin Type: 
 <!--This should be a user default -->
-<input type="text" name="short insulin type" placeholder="Enter insulin type"> <br>
+<input type="text" name="shortIns" placeholder="Enter insulin type"> 
+Units of Insulin: 
+<input type="text" name="shortInsBolus" placeholder="Enter units of short acting insulin"> <br>
+Long Acting Insulin Type:
+<input type="text" name="longIns" placeholder="Enter insulin type"> 
+Units of Insulin: 
+<input type="text" name="longInsBolus" placeholder="Enter units of long acting insulin"> <br> 
 Time:<br>
 <input type="datetime-local" id="insulin-time-input" name="time"> <br>
 <input type="submit" value="Submit"> 

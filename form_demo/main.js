@@ -36,7 +36,9 @@ http.createServer(function (req, res) {
        dataString = "";
 	   for (key of keys) {
 		 console.log("key: " +key +" value: " + post[key]);
-		 dataString = dataString.concat(key, ",", post[key], " ");
+		 if (post[key].length > 0) {//Only submit if user entered a value 
+		   dataString = dataString.concat(key, ",", post[key], " ");
+		 }
 		 console.log("dataString: " + dataString)
 		 if(key === "time"){
 	       fs.appendFile('data_file.txt', dataString + '\n', function (err) {
